@@ -1,72 +1,20 @@
-import { StyleSheet, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import { GlobalStyles } from "../../constants/styles";
 import ExpensesList from "./ExpensesList";
 import ExpensesSummary from "./ExpensesSummary";
 
-const DUMMY_EXPENSES = [
-  {
-    id: "e1",
-    title: "A pair of shoes",
-    amount: 599.99,
-    date: new Date("2022-08-01"),
-  },
-  {
-    id: "e2",
-    title: "A pair of pants",
-    amount: 1299.99,
-    date: new Date("2022-08-02"),
-  },
-  {
-    id: "e3",
-    title: "Some bananas",
-    amount: 20.0,
-    date: new Date("2022-07-31"),
-  },
-  {
-    id: "e4",
-    title: "A can of milk",
-    amount: 60.0,
-    date: new Date("2022-07-22"),
-  },
-  {
-    id: "e5",
-    title: "Python Programming",
-    amount: 129.0,
-    date: new Date("2022-07-18"),
-  },
-  {
-    id: "e6",
-    title: "Java Masterclass",
-    amount: 199.0,
-    date: new Date("2022-07-14"),
-  },
-  {
-    id: "e7",
-    title: "Svelte by Rich Harris",
-    amount: 299.0,
-    date: new Date("2022-07-10"),
-  },
-  {
-    id: "e8",
-    title: "Mop",
-    amount: 120.0,
-    date: new Date("2022-07-08"),
-  },
-  {
-    id: "e9",
-    title: "Bunch of flowers",
-    amount: 70.0,
-    date: new Date("2022-01-02"),
-  },
-];
+const ExpensesOutput = ({ expenses, period, fallbackText }) => {
+  let content = <Text style={styles.infoText}>{fallbackText}</Text>;
 
-const ExpensesOutput = ({ expenses, period }) => {
+  if (expenses.length > 0) {
+    content = <ExpensesList expenses={expenses} />;
+  }
   return (
     <View style={styles.container}>
       {/* SUMMARY */}
-      <ExpensesSummary period={period} expenses={DUMMY_EXPENSES} />
+      <ExpensesSummary period={period} expenses={expenses} />
       {/* LIST OF EXPENSES */}
-      <ExpensesList expenses={DUMMY_EXPENSES} />
+      {content}
     </View>
   );
 };
@@ -80,5 +28,11 @@ const styles = StyleSheet.create({
     paddingTop: 24,
     paddingBottom: 0,
     backgroundColor: GlobalStyles.colors.primary700,
+  },
+  infoText: {
+    color: "white",
+    fontSize: 16,
+    textAlign: "center",
+    marginTop: 20,
   },
 });
